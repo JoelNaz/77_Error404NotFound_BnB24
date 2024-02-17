@@ -51,9 +51,6 @@ export default function ExampleNavbarThree() {
                   className="inline-flex items-center text-sm font-semibold text-gray-800 hover:text-gray-900"
                 >
                   {item.name}
-                  <span>
-                    <ChevronDown className="ml-2 h-4 w-4" />
-                  </span>
                 </a>
               </li>
             ))}

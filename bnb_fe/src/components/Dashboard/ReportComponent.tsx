@@ -1,8 +1,8 @@
 import { Card } from "@/components/ui/card"
 
-export default function ReportComponent() {
+export default function ReportComponent({title,description,status="pending"}:{title:string,description:string,status:string}) {
   return (
-    <Card className="flex items-start p-6">
+    <Card className="flex  p-6">
       {/* <img
         alt="Image"
         className="rounded-lg object-cover"
@@ -14,9 +14,12 @@ export default function ReportComponent() {
         }}
         width="200"
       /> */}
-      <div className="ml-6 grid gap-2">
-        <h1 className="text-2xl font-bold">Card Title</h1>
-        <p className="text-sm">Description for the card.</p>
+      <div className="flex justify-between items-center w-full">
+        <div className="ml-6 flex flex-col gap-2">
+          <h1 className="text-2xl font-bold">{title}</h1>
+          <p className="text-sm">{description}</p>
+        </div>
+        <div >{status}</div>
       </div>
     </Card>
   )

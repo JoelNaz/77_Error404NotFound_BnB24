@@ -1,22 +1,28 @@
 import { login } from "@/api";
 import { create } from "zustand";
-import jwtDecode from 'jwt-decode';
 
 type ProfileStore = {
   token:string,
-  login:(authData:{username:string,password:string})=>Promise<void>
+  role:string,
+  setUser:()=>void,
+  login:(authData:{username:string,password:string})=>Promise<void>,
   logout:()=>void
 }
 
 export const useProfileStore = create<ProfileStore>((set)=>({
   token:"",
+  role:"",
   login:async (authData)=>{
       const response = await login(authData)
+      const role = response.data.role
       const token: string = response.data.token; 
-      set((state)=>({token}));
+      set(()=>({token,role}));
       
   },
   logout:()=>{
     set(()=>({token:""}))
+  },
+  setUser:()=>{
+    
   }
 }))
