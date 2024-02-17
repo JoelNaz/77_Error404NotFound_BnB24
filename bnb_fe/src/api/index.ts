@@ -21,4 +21,4 @@ export const loginInvestigator = (authData:{username:string,password:string}) =>
     return response;
   });
 
-
+export const getAllUserReports =(userId:string)=>API.get(`user/getUserReports/${userId}`)
