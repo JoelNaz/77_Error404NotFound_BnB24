@@ -117,6 +117,31 @@ router.post('/usersignin', async (req, res) => {
   });
 
 
+  router.post('/investigatorsignup', async (req, res) => {
+    try {
+      const { fullName, email, password, phone } = req.body;
+  
+      // Hash the password before saving it to the database
+      const hashedPassword = await bcrypt.hash(password, 10);
+  
+      // Create a new investigator using the Investigator schema
+      const newInvestigator = new Investigator({
+        fullName,
+        email: email.toLowerCase(),
+        password: hashedPassword,
+        phone,
+      });
+  
+      // Save the investigator to the database
+      await newInvestigator.save();
+  
+      res.status(201).json({ message: 'Investigator registered successfully' });
+    } catch (error) {
+      console.error(error);
+      res.status(500).json({ message: 'Internal server error' });
+    }
+  });
+
 
 
 

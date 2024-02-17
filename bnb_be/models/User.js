@@ -20,7 +20,7 @@ const userSchema = new mongoose.Schema({
 });
 
 const investigatorSchema = new mongoose.Schema({
-  fullName: {
+  username: {
     type: String,
     required: true,
     unique: true,
@@ -55,6 +55,11 @@ const userReportSchema = new mongoose.Schema({
   location: {
     type: String,
     required: true,
+  },
+  status: {
+    type: String,
+    required: true,
+    default: 'pending',
   },
   image: {
     type: Buffer, // Store binary image data

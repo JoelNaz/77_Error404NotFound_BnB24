@@ -43,7 +43,21 @@ router.get('/getUserReports/:userId', async (req, res) => {
   }
 });
 
-module.exports = router;
+router.get('/reportstatus/:status', async (req, res) => {
+  try {
+
+    const { status } = req.params;
+
+    // Find all user reports with status 'pending'
+    const reports = await UserReport.find({ status: status });
+
+    // Send the list of pending reports as a response
+    res.json(reports);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: 'Internal server error' });
+  }
+});
 
 
 
