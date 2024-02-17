@@ -4,26 +4,47 @@ const {User,Investigator,UserReport} = require('../models/User');
 const router = express.Router();
 
 // Route to handle the submission of user reports
-router.post('/postUserReports', async (req, res) => {
+router.post('/postUserReports/:userId', async (req, res) => {
   try {
-    const { title, description, location, image } = req.body;
+
+    const { userId } = req.params;
+    const { title, description, location, image} = req.body;
     
     // Create a new UserReport instance
     const newUserReport = new UserReport({
       title,
       description,
       location,
-      image: Buffer.from(image, 'base64'), // Convert base64 image data to Buffer
+      image,
+      createdBy: userId, // userId is the ObjectId of the user who created the report
     });
 
     // Save the user report to the database
     await newUserReport.save();
 
-    res.status(201).json({ message: 'User report submitted successfully' });
+    res.status(201).json({ message: 'User report created successfully' });
   } catch (error) {
-    console.error('Error submitting user report:', error.message);
+    console.error(error);
     res.status(500).json({ message: 'Internal server error' });
   }
 });
+
+router.get('/getUserReports/:userId', async (req, res) => {
+  try {
+    const { userId } = req.params;
+
+    // Find user reports based on the createdBy field
+    const userReports = await UserReport.find({ createdBy: userId });
+
+    res.status(200).json({ userReports });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: 'Internal server error' });
+  }
+});
+
+module.exports = router;
+
+
 
 module.exports = router;
