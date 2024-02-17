@@ -4,6 +4,7 @@
  * Documentation: https://v0.dev/docs#integrating-generated-code-into-your-nextjs-app
  */
 import { NavLink } from "react-router-dom"
+import { Button } from "../ui/button"
 
 export default function Hero() {
   return (
@@ -15,12 +16,17 @@ export default function Hero() {
             Secure Reporting and Investigation Platform
           </p>
         </div>
-        <div className="text-center">
+        <div className="text-center flex flex-col gap-5">
           <NavLink
             className="inline-flex h-10 items-center justify-center rounded-md border border-gray-200 bg-white px-8 text-xl font-medium shadow-sm transition-colors hover:bg-gray-100 hover:text-gray-900 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-gray-950 disabled:pointer-events-none disabled:opacity-50 dark:hover:text-gray-50 dark:focus-visible:ring-gray-300"
             to="report"
           >
             Report Corruption
+          </NavLink>
+          <NavLink to="/signin-investigator">
+            <Button>
+              Sigin As Investigator
+            </Button>
           </NavLink>
         </div>
       </div>
