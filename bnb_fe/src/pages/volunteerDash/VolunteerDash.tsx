@@ -17,9 +17,9 @@ function VolunteerDash() {
         navigate("/")
       }
       else{
-        const decoded=jwtDecode(token)
+        const decoded=jwtDecode(token) as { _id: string }
         // console.log(decoded)
-        const response = await getAllUserReports(decoded._id)
+        const response = await getAllUserReports(decoded._id) 
         setReports(response?.data.userReports)
       }  
     }
