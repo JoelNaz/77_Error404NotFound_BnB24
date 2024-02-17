@@ -56,7 +56,7 @@ router.post('/usersignin', async (req, res) => {
       }
   
       const token = jwt.sign({ _id: user._id, username: user.username }, jwtSecret);
-      res.json({ token });
+      res.json({ token, role:'user' });
     } catch (error) {
       console.error(error);
       res.status(500).json({ message: 'Internal server error' });
@@ -79,7 +79,7 @@ router.post('/usersignin', async (req, res) => {
       }
   
       const token = jwt.sign({ _id: user._id, email: user.email, fullName: user.fullName }, jwtSecret);
-      res.json({ token });
+      res.json({ token ,role:'investigator'});
     } catch (error) {
       console.error(error);
       res.status(500).json({ message: 'Internal server error' });
