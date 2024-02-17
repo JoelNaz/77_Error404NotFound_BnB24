@@ -1,4 +1,7 @@
+import Accepted from "@/components/Dashboard/Accepted";
 import ExampleNavbarThree from "@/components/Dashboard/Navbar";
+import Pending from "@/components/Dashboard/Pending";
+import Rejected from "@/components/Dashboard/Rejected";
 import ReportComponent from "@/components/Dashboard/ReportComponent";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 
@@ -22,13 +25,13 @@ function InvestigatorDash() {
             </TabsList>
             </div>
             <TabsContent value="pending">
-              <ReportComponent title="hello" description="hhelo" status="pending"/>
+              <Pending/>
             </TabsContent>
             <TabsContent value="accepted">
-            <ReportComponent title="hello" description="hhelo" status="accepted"/>
-            </TabsContent>
+              <Accepted/>
+              </TabsContent>
             <TabsContent value="rejected">
-            <ReportComponent title="hello" description="hhelo" status="rejected"/>
+              <Rejected/>
             </TabsContent>
           </Tabs>
         </div>
