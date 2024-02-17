@@ -21,5 +21,6 @@ export const loginInvestigator = (authData:{username:string,password:string}) =>
     return response;
   });
 
+export const suggestUsername=()=>API.get('/auth/suggest-username')
 export const getAllUserReports =(userId:string)=>API.get(`user/getUserReports/${userId}`)
 export const uploadReport = (userId:string,reportData:{title:string,location:string,description:String,image:any})=>API.post(`user/postUserReports/${userId}`,reportData)

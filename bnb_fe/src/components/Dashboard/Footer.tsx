@@ -26,11 +26,6 @@ export function Footer() {
               </li>
               <li className="p-5">
                 <a className="font-medium text-gray-600 hover:text-gray-700" href="#">
-                  Return Policy
-                </a>
-              </li>
-              <li className="p-5">
-                <a className="font-medium text-gray-600 hover:text-gray-700" href="#">
                   Contact Us
                 </a>
               </li>

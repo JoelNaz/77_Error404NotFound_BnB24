@@ -25,7 +25,7 @@ export default function Hero() {
           </NavLink>
           <NavLink to="/signin-investigator">
             <Button>
-              Sigin As Investigator
+              Signin As Investigator
             </Button>
           </NavLink>
         </div>
