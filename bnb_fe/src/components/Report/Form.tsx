@@ -14,22 +14,27 @@ export default function Form({userId}:{userId:string}) {
   const [title,setTitle]=useState("")
   const [location,setLocation]=useState("")
   const [description,setDescription]=useState("")
-  const [image,setImage]=useState()
-  const handleImage=async (event)=>{
-    const file = event.target.files[0];
+
+
+  const [image, setImage] = useState<string | null>(null);
+
+  const handleImage = async (event: React.ChangeEvent<HTMLInputElement>) => {
+    const file = event.target.files?.[0];
     if (!file) {
       return;
-    }
-    else{
+    } else {
       const reader = new FileReader();
 
-    reader.onload = async (event) => {
-      // Get the base64 string representation of the file
-      const base64String = event.target.result
-      setImage(base64String)
+      reader.onload = async (event) => {
+        // Get the base64 string representation of the file
+        const base64String = event.target.result as string;
+        setImage(base64String);
+      };
+
+      // Read the contents of the file as a data URL (base64)
+      reader.readAsDataURL(file);
     }
-  }
-}
+  };
   
   const handleSubmit = async () =>{
     try{

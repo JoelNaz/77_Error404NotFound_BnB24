@@ -36,6 +36,11 @@ const investigatorSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
+  phone: {
+    type: String,
+    required: true,
+    unique: true,
+  },
 });
 
 const userReportSchema = new mongoose.Schema({
