@@ -33,7 +33,8 @@ db.once('open', () => {
 });
 
 // Middleware
-app.use(bodyParser.json());
+
+app.use(bodyParser.json({ limit: '10mb' }));
 
 const jwtSecret = 'your-secret-key';
 
