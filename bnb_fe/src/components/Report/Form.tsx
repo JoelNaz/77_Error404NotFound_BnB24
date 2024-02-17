@@ -14,16 +14,32 @@ export default function Form({userId}:{userId:string}) {
   const [title,setTitle]=useState("")
   const [location,setLocation]=useState("")
   const [description,setDescription]=useState("")
+  const [image,setImage]=useState()
+  const handleImage=async (event)=>{
+    const file = event.target.files[0];
+    if (!file) {
+      return;
+    }
+    else{
+      const reader = new FileReader();
 
+    reader.onload = async (event) => {
+      // Get the base64 string representation of the file
+      const base64String = event.target.result
+      setImage(base64String)
+    }
+  }
+}
+  
   const handleSubmit = async () =>{
     try{
-      const response=await uploadReport(userId,{title,location,description})
+      const response=await uploadReport(userId,{title,location,description,image})
     }
     catch(e){
       console.log(e)
     }
   }
-
+  console.log(image)
   return (
     <div className="space-y-8">
       <div className="space-y-2">
@@ -49,7 +65,7 @@ export default function Form({userId}:{userId:string}) {
         </div>
         <div className="space-y-2">
           <Label htmlFor="image">Image</Label>
-          <Input id="image" type="file" />
+          <Input id="image" type="file" onChange={handleImage}/>
         </div>
         <Button onClick={handleSubmit}>Report Problem</Button>
       </div>

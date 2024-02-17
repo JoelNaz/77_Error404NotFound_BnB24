@@ -22,4 +22,4 @@ export const loginInvestigator = (authData:{username:string,password:string}) =>
   });
 
 export const getAllUserReports =(userId:string)=>API.get(`user/getUserReports/${userId}`)
-export const uploadReport = (userId:string,reportData:{title:string,location:string,description:String})=>API.post(`user/postUserReports/${userId}`,reportData)
+export const uploadReport = (userId:string,reportData:{title:string,location:string,description:String,image:any})=>API.post(`user/postUserReports/${userId}`,reportData)

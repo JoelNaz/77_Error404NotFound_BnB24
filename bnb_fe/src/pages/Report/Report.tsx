@@ -7,7 +7,7 @@ import { useNavigate } from 'react-router-dom'
 
 function Report() {
   const token = useProfileStore((state)=>state.token)
-  const   navigate=useNavigate()
+  const navigate=useNavigate()
   const [id,setId]=useState("")
   useEffect(()=>{
     if(!token)
