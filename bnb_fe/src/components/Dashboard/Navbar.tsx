@@ -29,10 +29,7 @@ export default function ExampleNavbarThree() {
   }
   const token = useProfileStore((state)=>state.token)
   const logout = useProfileStore((state)=>state.logout)
-  useEffect(()=>{
-    if(!token)
-      navigate('/')
-  },[]) 
+  
   const handleLogout = ()=>{
     logout()
     navigate("/")

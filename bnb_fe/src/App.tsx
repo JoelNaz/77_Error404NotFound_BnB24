@@ -13,6 +13,7 @@ const SignUp = React.lazy(()=>import ('./pages/Auth/SignUp'))
 const SignIn = React.lazy(()=>import ('./pages/Auth/SignIn'))
 const Report = React.lazy(()=>import ('./pages/Report/Report'))
 const VolunDash = React.lazy(()=>import ('./pages/volunteerDash/VolunteerDash'))
+const InvestDash = React.lazy(()=>import ('./pages/InvestDash/InvestigatorDash'))
 const router = createBrowserRouter([
   {
     path: "/",
@@ -27,12 +28,20 @@ const router = createBrowserRouter([
     element: <SignIn/>,
   },
   {
+    path: "/signin-investigator",
+    element: <SignIn/>,
+  },
+  {
     path: "/report",
     element: <Report/>,
   },
   {
     path:"/volun-dash",
     element: <VolunDash/>,
+  },
+  {
+    path:"/invest-dash",
+    element: <InvestDash/>,
   }
 ])
 function App() {
