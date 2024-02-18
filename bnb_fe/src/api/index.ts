@@ -27,3 +27,5 @@ export const uploadReport = (userId:string,reportData:{title:string,location:str
 export const getReportsbyStatus=(status:string)=>API.get(`user/reportstatus/${status}`)
 
 export const updayeStatus = (reportID:string,data:{status:string})=>API.post(`user/updateReportStatus/${reportID}`,data)
+
+export const fetchMessage = (userId:string,investId:string,participant:string)=>API.get(`chat/${userId}/${investId}/${participant}`)

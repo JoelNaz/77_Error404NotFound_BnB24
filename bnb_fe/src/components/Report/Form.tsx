@@ -9,13 +9,15 @@ import { Textarea } from "@/components/ui/textarea"
 import { Button } from "@/components/ui/button"
 import { useState } from "react"
 import { uploadReport } from "@/api"
+import toast from "react-hot-toast"
+import { useNavigate } from "react-router-dom"
 
 export default function Form({userId}:{userId:string}) {
   const [title,setTitle]=useState("")
   const [location,setLocation]=useState("")
   const [description,setDescription]=useState("")
 
-
+  const navigate = useNavigate();
   const [image, setImage] = useState<string | null>(null);
 
   const handleImage = async (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -39,6 +41,8 @@ export default function Form({userId}:{userId:string}) {
   const handleSubmit = async () =>{
     try{
       const response=await uploadReport(userId,{title,location,description,image})
+      toast.success("Reported the incident successfully")
+      navigate("/volun-dash")
     }
     catch(e){
       console.log(e)
