@@ -3,6 +3,7 @@ const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
 const userRoutes = require('./routes/UserRoutes');
 const authRoutes = require('./routes/auth');
+const chatRoutes = require('./routes/chatRoutes');
 
 const cors = require('cors');
 const jwt = require('jsonwebtoken');
@@ -46,6 +47,7 @@ app.get('/', (req, res) => {
 
 app.use('/auth', authRoutes);
 app.use('/user', userRoutes);
+app.use('/chat', chatRoutes);
 
 app.post('/api/sendData', (req, res) => {
     const dataFromClient = req.body;

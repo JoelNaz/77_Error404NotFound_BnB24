@@ -102,7 +102,6 @@ const chatSchema = new mongoose.Schema({
 
 const Chat = mongoose.model('Chat', chatSchema);
 
-
 const UserReport = mongoose.model('UserReport', userReportSchema);
 const User = mongoose.model('User', userSchema);
 const Investigator = mongoose.model('Investigator', investigatorSchema);
