@@ -74,8 +74,6 @@ const userReportSchema = new mongoose.Schema({
 });
 
 
-const mongoose = require('mongoose');
-
 const chatSchema = new mongoose.Schema({
   sender: {
     type: mongoose.Schema.Types.ObjectId,
