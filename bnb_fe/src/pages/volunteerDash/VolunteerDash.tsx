@@ -24,21 +24,30 @@ function VolunteerDash() {
         navigate("/")
       }
       else{
-        const decoded=jwtDecode(token) as { _id: string }
-        // console.log(decoded)
-        seIsLoading(true)
-        setuserId(decoded._id)
-        const response = await getAllUserReports(decoded._id) 
-        setReports(response?.data.userReports)
-        const response1 = await checkMessage(decoded._id)
-        if(response1.data.messagesExist._id){
-          console.log("helo")
-          setMessageExist(true)
-          setOtherId(response1.data.otherUser)
+        try{
+
+          const decoded=jwtDecode(token) as { _id: string }
+          // console.log(decoded)
+          seIsLoading(true)
+          setuserId(decoded._id)
+          const response = await getAllUserReports(decoded._id) 
+          setReports(response?.data.userReports)
+          const response1 = await checkMessage(decoded._id)
+          if(response1.data.messagesExist._id){
+            console.log("helo")
+            setMessageExist(true)
+            setOtherId(response1.data.otherUser)
+            
+          }
+            
           
         }
-          
-        seIsLoading(false)
+        catch(e){
+          console.log(e)
+        }
+        finally{
+          seIsLoading(false)
+        }
       }  
     }
       fetchReports();
@@ -72,7 +81,7 @@ function VolunteerDash() {
         <div className="flex flex-col gap-2 mx-4 mt-5">
         {reports &&
           reports.map((item)=>(
-            <ReportComponent title={item.title} description={item.description}/>
+            <ReportComponent title={item.title} description={item.description} status={item.status}/>
           ))
         }
         {
