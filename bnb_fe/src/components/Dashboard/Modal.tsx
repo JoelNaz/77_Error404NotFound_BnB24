@@ -39,7 +39,7 @@ export default function ReportModal({
 
   return (
     <Card className="flex p-6">
-      <div className="flex justify-between items-center w-[800px]">
+      <div className="flex justify-between items-center ">
         <div className="ml-6 flex flex-col gap-2">
           <h1 className="text-2xl font-bold">{title}</h1>
           <p className="text-sm">{description}</p>
