@@ -93,19 +93,32 @@ router.get('/checkMessages/:userId', async (req, res) => {
   try {
     const userId = req.params.userId;
 
-    // Find messages where the provided userId is the sender
-    const messagesExist = await Chat.exists({ sender: userId });
+    // Find messages where the provided userId is either the sender or receiver
+    const messagesExist = await Chat.exists({
+      $or: [
+        { sender: userId },
+        { receiver: userId },
+      ],
+    });
 
     // Find additional information about the other user (receiver)
-    const otherUser = await Chat.findOne({ sender: userId })
-      .select('receiver')
+    const chat = await Chat.findOne({
+      $or: [
+        { sender: userId },
+        { receiver: userId },
+      ],
+    })
+      .select('sender receiver')
       .populate({
-        path: 'receiver',
-        select: 'username email', // Add other fields you want to retrieve
-        model: 'Investigator', // Assuming the 'Investigator' model is used for the receiver
+        path: 'sender',
+        select: '_id', // Assuming '_id' is the field in the Investigator model
+        model: 'Investigator',
       });
 
-    res.json({ messagesExist, otherUser });
+    const otherUserId = chat.sender._id.toString();
+    console.log(otherUserId)
+
+    res.json({ messagesExist, otherUserId });
   } catch (error) {
     console.error(error);
     res.status(500).json({ message: 'Internal server error' });
