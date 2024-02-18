@@ -6,52 +6,6 @@ import { useNavigate } from 'react-router-dom';
 import ReCAPTCHA from 'react-google-recaptcha';
 
 
-
-const Captcha = (setVerified:any) => {
-  const handleCaptchaChange = (value: string | null) => {
-      // The value parameter will be null if the user fails the reCAPTCHA challenge.
-      if (value !== null) {
-        // The user is verified as a human, you can proceed with your logic here
-      console.log('User is verified as human!');
-      setVerified(true)
-      } else {
-        // The user failed the reCAPTCHA challenge, consider displaying an error message
-      console.error('reCAPTCHA verification failed. Please prove you are not a robot.');
-      toast.error("Couldn't verify")
-      setVerified(false)
-      }
-  };
-  
-  return (
-      <div>
-        {/* Your other form fields go here */}
-        {/* reCAPTCHA component */}
-      <ReCAPTCHA
-          sitekey="6LfSxHYpAAAAAEqn7gEa6YIi1Xw7E5eC1Ry7VCAL"
-          onChange={handleCaptchaChange}
-      />
-  
-        {/* Submit button */}
-      <button>Submit</button>
-      </div>
-  );
-  };
-  
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 export default function SignUpOne() {
   const [username,setUsername] = useState("")
   const [email,setEmail] = useState("");
@@ -82,8 +36,20 @@ export default function SignUpOne() {
     getUsername();
   },[])
 
-
-
+  console.log(verified)
+  const handleCaptchaChange = (value: string | null) => {
+    // The value parameter will be null if the user fails the reCAPTCHA challenge.
+    if (value !== null) {
+      // The user is verified as a human, you can proceed with your logic here
+    console.log('User is verified as human!');
+    setVerified(true)
+    } else {
+      // The user failed the reCAPTCHA challenge, consider displaying an error message
+    console.error('reCAPTCHA verification failed. Please prove you are not a robot.');
+    toast.error("Couldn't verify")
+    setVerified(false)
+    }
+};
   return (
     <section>
       <div className="grid grid-cols-1 lg:grid-cols-2">
@@ -153,13 +119,16 @@ export default function SignUpOne() {
                   </div>
                   
                 </div>
-                <Captcha setVerified={setVerified}/>
+                <ReCAPTCHA
+          sitekey="6LfSxHYpAAAAAEqn7gEa6YIi1Xw7E5eC1Ry7VCAL"
+          onChange={handleCaptchaChange}
+      />
                 <div>
                   <button
                     type="button"
                     className="inline-flex w-full items-center justify-center rounded-md bg-black px-3.5 py-2.5 font-semibold leading-7 text-white hover:bg-black/80 disabled:bg-black/80"
                     onClick={handleSubmit}
-                    // disabled={!verified}
+                    disabled={!verified}
                   >
                     Create Account <ArrowRight className="ml-2" size={16} />
                   </button>
