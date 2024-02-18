@@ -36,7 +36,7 @@ router.get('/getUserReports/:userId', async (req, res) => {
     // Find user reports based on the createdBy field
     const userReports = await UserReport.find({ createdBy: userId });
 
-    res.status(200).json({ userReports });
+    res.status(200).json({ userReports, userId});
   } catch (error) {
     console.error(error);
     res.status(500).json({ message: 'Internal server error' });

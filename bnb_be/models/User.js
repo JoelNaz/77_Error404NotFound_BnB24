@@ -73,8 +73,40 @@ const userReportSchema = new mongoose.Schema({
   },
 });
 
+
+const mongoose = require('mongoose');
+
+const chatSchema = new mongoose.Schema({
+  sender: {
+    type: mongoose.Schema.Types.ObjectId,
+    refPath: 'participants',
+    required: true,
+  },
+  receiver: {
+    type: mongoose.Schema.Types.ObjectId,
+    refPath: 'participants',
+    required: true,
+  },
+  participants: {
+    type: String,
+    enum: ['User', 'Investigator'],
+    required: true,
+  },
+  message: {
+    type: String,
+    required: true,
+  },
+  timestamp: {
+    type: Date,
+    default: Date.now,
+  },
+});
+
+const Chat = mongoose.model('Chat', chatSchema);
+
+
 const UserReport = mongoose.model('UserReport', userReportSchema);
 const User = mongoose.model('User', userSchema);
 const Investigator = mongoose.model('Investigator', investigatorSchema);
 
-module.exports = { User, Investigator, UserReport };
+module.exports = { User, Investigator, UserReport,Chat };
