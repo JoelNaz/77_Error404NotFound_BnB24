@@ -4,7 +4,7 @@ import { useProfileStore } from "@/store/store"
 import { useEffect, useState } from "react"
 import { NavLink, useNavigate } from "react-router-dom"
 import { jwtDecode } from "jwt-decode"
-import { getAllUserReports } from "@/api"
+import { checkMessage, getAllUserReports } from "@/api"
 import { Button } from "@/components/ui/button"
 import { title } from "process"
 import SpinnerCircular from "@/components/ui/SpinnerCircular"
@@ -14,6 +14,8 @@ function VolunteerDash() {
   const navigate = useNavigate()
   const [reports,setReports] =useState([])
   const [isLoading,seIsLoading] =useState(false)
+  const [messageExist,setMessageExist]=useState(false)
+  const [userId,setuserId]=useState("")
   useEffect(()=>{
     const fetchReports=async()=>{
       if(!token){
@@ -23,8 +25,15 @@ function VolunteerDash() {
         const decoded=jwtDecode(token) as { _id: string }
         // console.log(decoded)
         seIsLoading(true)
+        setuserId(decoded._id)
         const response = await getAllUserReports(decoded._id) 
         setReports(response?.data.userReports)
+        const response1 = await checkMessage(decoded._id)
+        if(response1.data.messagesExist._id){
+          console.log("helo")
+          setMessageExist(true)
+        }
+          
         seIsLoading(false)
       }  
     }
@@ -32,13 +41,30 @@ function VolunteerDash() {
     
   },[token])
 
-  console.log(reports)
+  // useEffect(()=>{
+  //   const messageCheck = async()=>{
+  //     try{
+        
+  //     }
+  //     catch(e){
+
+  //     }
+  //   }
+  //   messageCheck();
+  // },[])
+
+  const handleChatNow = ()=>{
+    navigate(`/chat/${userId}`)
+  }
 
   return (
     <div>
       <ExampleNavbarThree/>
       <div className=" mx-60 mt-10">
-        <div className="text-[28px]">My Reported Incidents</div>
+        <div className="flex flex-col">
+         <div className="text-[28px]">My Reported Incidents</div>
+          {messageExist && <div className="flex gap-4 items-center border-2 p-4 rounded-md max-w-[400px]"><div>An investigator wants to talk to you</div><Button onClick={handleChatNow}>Chat Now</Button></div>}
+        </div>
         <div className="flex flex-col gap-2 mx-4 mt-5">
         {reports &&
           reports.map((item)=>(

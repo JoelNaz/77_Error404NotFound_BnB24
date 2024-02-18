@@ -29,3 +29,5 @@ export const getReportsbyStatus=(status:string)=>API.get(`user/reportstatus/${st
 export const updayeStatus = (reportID:string,data:{status:string})=>API.post(`user/updateReportStatus/${reportID}`,data)
 
 export const fetchMessage = (userId:string,investigatorId:string,participants:string)=>API.get(`chat/${userId}/${investigatorId}/${participants}`)
+
+export const checkMessage = (userId:string)=>API.get(`user/checkMessages/${userId}`)
