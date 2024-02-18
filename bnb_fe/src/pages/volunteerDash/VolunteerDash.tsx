@@ -35,7 +35,7 @@ function VolunteerDash() {
   console.log(reports)
 
   return (
-    <div className="mt-2">
+    <div>
       <ExampleNavbarThree/>
       <div className=" mx-60 mt-10">
         <div className="text-[28px]">My Reported Incidents</div>
