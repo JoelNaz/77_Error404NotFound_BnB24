@@ -1,4 +1,4 @@
-import { login } from "@/api";
+import { login, loginInvestigator } from "@/api";
 import { create } from "zustand";
 
 type ProfileStore = {
@@ -6,7 +6,8 @@ type ProfileStore = {
   role:string,
   setUser:()=>void,
   login:(authData:{username:string,password:string})=>Promise<void>,
-  logout:()=>void
+  logout:()=>void,
+  investLogin:(authData:{username:string,password:string})=>Promise<void>,
 }
 
 export const useProfileStore = create<ProfileStore>((set)=>({
@@ -24,5 +25,11 @@ export const useProfileStore = create<ProfileStore>((set)=>({
   },
   setUser:()=>{
     
+  },
+  investLogin:async (authData)=>{
+    const response =await loginInvestigator(authData)
+    const role = response.data.role
+    const token: string = response.data.token; 
+    set(()=>({token,role}));
   }
 }))

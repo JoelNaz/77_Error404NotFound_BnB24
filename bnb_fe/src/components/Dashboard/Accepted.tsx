@@ -21,7 +21,7 @@ function Rejected() {
   return (
     <div className="flex flex-col gap-4">
       {
-        acceptedReports.map((item)=>(<Modal title={item.title} description={item.description} status={item.status}/>))
+        acceptedReports.map((item)=>(<Modal title={item.title} description={item.description} status={item.status} createdBy={item.createdBy}/>))
       }
     </div>
   )

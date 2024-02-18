@@ -5,7 +5,6 @@ import Modal from "./Modal"
 
 function Pending() {
   const [pendingReports,setReports]=useState([])
-
   useEffect(()=>{
     const getPendingReport=async()=>{
       try{
@@ -21,7 +20,7 @@ function Pending() {
   return (
     <div className="flex flex-col gap-4">
       {
-        pendingReports.map((item)=>(<Modal title={item.title} description={item.description} status={item.status}/>))
+        pendingReports.map((item)=>(<Modal title={item.title} description={item.description} status={item.status} createdBy={item.createdBy}/>))
       }
     </div>
   )

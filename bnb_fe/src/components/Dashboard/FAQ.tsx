@@ -1,7 +1,7 @@
 
 export default function Faq() {
   return (
-    <section className="px-2 mt-[200px]">
+    <section className="px-2 mt-[100px]">
       <div className="mx-auto max-w-7xl py-10">
         <div className="lg:grid lg:grid-cols-12 lg:gap-10">
           <div className="lg:col-span-5">
