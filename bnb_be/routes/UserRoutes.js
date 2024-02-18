@@ -1,5 +1,5 @@
 const express = require('express');
-const {User,Investigator,UserReport} = require('../models/User');
+const {User,Investigator,UserReport, Chat} = require('../models/User');
 
 const router = express.Router();
 
@@ -87,6 +87,28 @@ router.post('/updateReportStatus/:reportId', async (req, res) => {
     res.status(500).json({ message: 'Internal server error' });
   }
 });
+
+
+router.get('/checkMessages/:userId', async (req, res) => {
+  try {
+    const userId = req.params.userId;
+
+    // Check if there are any messages for the given user
+    const messagesExist = await Chat.exists({
+      $or: [
+        { sender: userId },
+        { receiver: userId },
+      ],
+    });
+
+    res.json({ messagesExist });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: 'Internal server error' });
+  }
+});
+
+module.exports = router;
 
 
 
