@@ -23,7 +23,8 @@ export const useProfileStore = create<ProfileStore>((set)=>({
       
   },
   logout:()=>{
-    set(()=>({token:""}))
+    localStorage.removeItem('Profile');
+    set(()=>({token:"",role:""}))
   },
   setUser:(userData)=>{
     const { token, role } = userData;
