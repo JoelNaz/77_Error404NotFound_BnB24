@@ -16,6 +16,7 @@ export const useProfileStore = create<ProfileStore>((set)=>({
   login:async (authData)=>{
       const response = await login(authData)
       const role = response.data.role
+      console.log(role)
       const token: string = response.data.token; 
       set(()=>({token,role}));
       
@@ -30,6 +31,7 @@ export const useProfileStore = create<ProfileStore>((set)=>({
     const response =await loginInvestigator(authData)
     const role = response.data.role
     const token: string = response.data.token; 
+    console.log(role)
     set(()=>({token,role}));
   }
 }))

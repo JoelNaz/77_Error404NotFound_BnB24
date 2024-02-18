@@ -7,6 +7,7 @@ import axios from "axios";
 
 function ChatUser() {
   const token = useProfileStore((state) => state.token);
+  const role = useProfileStore((state) => state.role);
   const { userId } = useParams();
   const navigate = useNavigate();
   const [messageInput, setMessageInput] = useState("");
