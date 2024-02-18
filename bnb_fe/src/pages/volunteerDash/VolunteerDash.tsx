@@ -16,6 +16,8 @@ function VolunteerDash() {
   const [isLoading,seIsLoading] =useState(false)
   const [messageExist,setMessageExist]=useState(false)
   const [userId,setuserId]=useState("")
+  const[otherId,setOtherId]=useState("")
+
   useEffect(()=>{
     const fetchReports=async()=>{
       if(!token){
@@ -32,6 +34,8 @@ function VolunteerDash() {
         if(response1.data.messagesExist._id){
           console.log("helo")
           setMessageExist(true)
+          setOtherId(response1.data.otherUser)
+          
         }
           
         seIsLoading(false)
@@ -54,7 +58,7 @@ function VolunteerDash() {
   // },[])
 
   const handleChatNow = ()=>{
-    navigate(`/chat/${userId}`)
+    navigate(`/chat/${otherId}`)
   }
 
   return (
