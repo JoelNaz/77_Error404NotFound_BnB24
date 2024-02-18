@@ -12,8 +12,7 @@ function ChatUser() {
   const navigate = useNavigate();
   const [messageInput, setMessageInput] = useState("");
   const [messages, setMessages] = useState([]);
-  const role = useProfileStore((state)=>state.role)
-
+  console.log(role)
   const fetchMessages = async (userId, investId, participant) => {
     try {
       const response = await fetchMessage(userId, investId, participant);
