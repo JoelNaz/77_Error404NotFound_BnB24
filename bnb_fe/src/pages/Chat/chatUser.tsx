@@ -39,7 +39,7 @@ function ChatUser() {
       });
 
       // Update state directly without waiting for fetchMessages
-      setMessages([...messages, { message, sender: decoded._id }]);
+      setMessages([...messages, { message, participants: role }]);
 
       // Clear the input field
       setMessageInput("");
@@ -73,7 +73,7 @@ function ChatUser() {
           <div key={msg._id}>
             <p>
               <strong>
-                {role === "Investigator" ? "Investigator" : "User"}:
+                {msg.participants === "Investigator" ? "Investigator" : "User"}:
               </strong>
               {msg.message}
             </p>
