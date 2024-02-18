@@ -1,42 +1,81 @@
+import React, { useState, useEffect } from "react";
 import { useProfileStore } from "@/store/store";
 import { useNavigate, useParams } from "react-router-dom";
-import {jwtDecode} from "jwt-decode"; // Corrected import statement
-import { useEffect } from "react";
+import { jwtDecode } from "jwt-decode";
 import { fetchMessage } from "@/api";
+import axios from "axios";
 
-function chatUser() {
+function ChatUser() {
   const token = useProfileStore((state) => state.token);
   const { userId } = useParams();
   const navigate = useNavigate();
-  const fetchMessages = async (userId:string,investId:string, participant:string) => {
+  const [messageInput, setMessageInput] = useState("");
+  const [messages, setMessages] = useState([]);
+
+  const fetchMessages = async (userId, investId, participant) => {
     try {
-      const response = await fetchMessage(userId, investId, participant); // Assuming userId is the user's ID
-      
-      console.log(response)
-      // setMessages(data.messages);
+      const response = await fetchMessage(userId, investId, participant);
+      setMessages(response.data.messages);
     } catch (error) {
       console.error('Error fetching messages:', error);
     }
   };
+
+  const handleSendMessage = async (receiver, participants, message) => {
+    try {
+      const decoded = jwtDecode(token);
+  
+      // Axios post request to send message
+      await axios.post('http://localhost:5000/chat/send', {
+        sender: decoded._id,
+        receiver,
+        participants,
+        message: message, // Ensure the message field is being sent correctly
+      });
+  
+      // Refetch messages after sending
+      fetchMessages(userId, decoded._id, receiver);
+  
+      // Clear the input field
+      setMessageInput("");
+    } catch (e) {
+      console.log(e);
+    }
+  };
+
   useEffect(() => {
     try {
       if (token !== "") {
-        const decoded = jwtDecode(token); // Corrected variable declaration
+        const decoded = jwtDecode(token);
         console.log(decoded);
-        fetchMessages(userId,decoded._id,"Investigator");
-        // You can set the decoded value to state if needed
+        fetchMessages(userId, decoded._id, "Investigator");
       } else {
         navigate('/signin-investigator');
       }
     } catch (e) {
       console.log(e);
     }
-  }, [token]); // Added token to the dependency array
+  }, [token]);
+
   return (
     <div>
-      userId : {userId}
+      <div>
+        {messages.map((msg) => (
+          <div key={msg._id}>
+            <p>{msg.message}</p>
+          </div>
+        ))}
+      </div>
+      <div>
+        <input
+          type="text"
+          value={messageInput}
+          onChange={(e) => setMessageInput(e.target.value)}
+        />
+        <button onClick={() => handleSendMessage(userId, "Investigator", messageInput)}>Send Message</button>
+      </div>
     </div>
   );
 }
 
-export default chatUser;
+export default ChatUser;
