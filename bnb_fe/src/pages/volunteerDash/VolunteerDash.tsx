@@ -74,7 +74,7 @@ function VolunteerDash() {
         <div className="flex flex-col gap-2 mx-4 mt-5">
         {reports &&
           reports.map((item)=>(
-            <ReportComponent title={item.title} description={item.description}/>
+            <ReportComponent title={item.title} description={item.description} status={item.status}/>
           ))
         }
         {
