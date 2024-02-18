@@ -1,6 +1,5 @@
 import { getReportsbyStatus } from "@/api"
 import { useEffect, useState } from "react"
-import ReportComponent from "./ReportComponent"
 import Modal from "./Modal"
 
 function Pending() {
@@ -20,7 +19,7 @@ function Pending() {
   return (
     <div className="flex flex-col gap-4">
       {
-        pendingReports.map((item)=>(<Modal title={item.title} description={item.description} status={item.status} createdBy={item.createdBy}/>))
+        pendingReports.map((item)=>(<Modal reportId={item._id} title={item.title} description={item.description} status={item.status} createdBy={item.createdBy}/>))
       }
     </div>
   )

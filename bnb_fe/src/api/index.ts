@@ -25,3 +25,5 @@ export const suggestUsername=()=>API.get('/auth/suggest-username')
 export const getAllUserReports =(userId:string)=>API.get(`user/getUserReports/${userId}`)
 export const uploadReport = (userId:string,reportData:{title:string,location:string,description:String,image:any})=>API.post(`user/postUserReports/${userId}`,reportData)
 export const getReportsbyStatus=(status:string)=>API.get(`user/reportstatus/${status}`)
+
+export const updayeStatus = (reportID:string,data:{status:string})=>API.post(`user/updateReportStatus/${reportID}`,data)
