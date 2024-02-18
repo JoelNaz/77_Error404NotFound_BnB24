@@ -65,7 +65,7 @@ function ChatUser() {
       {messages.map((msg) => (
   <div key={msg._id}>
     <p>
-      <strong>{msg.sender === "Investigator" ? "User" : "Investigator"}:</strong>{" "}
+      <strong>{role === "investigator" ? "Investigator" : "User"}:</strong>
       {msg.message}
     </p>
   </div>
