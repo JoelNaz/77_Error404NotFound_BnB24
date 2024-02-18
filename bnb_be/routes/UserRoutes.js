@@ -59,6 +59,33 @@ router.get('/reportstatus/:status', async (req, res) => {
   }
 });
 
+router.post('/updateReportStatus/:reportId', async (req, res) => {
+  try {
+    const { reportId } = req.params;
+    const { status } = req.body;
 
+    // Validate if the provided status is valid (you can customize this based on your status values)
+    const validStatusValues = ['pending', 'accepted', 'rejected'];
+    if (!validStatusValues.includes(status)) {
+      return res.status(400).json({ message: 'Invalid status value' });
+    }
+
+    // Update the status of the user report
+    const updatedReport = await UserReport.findByIdAndUpdate(
+      reportId,
+      { status },
+      { new: true }
+    );
+
+    if (!updatedReport) {
+      return res.status(404).json({ message: 'User report not found' });
+    }
+
+    res.status(200).json({ message: 'Report status updated successfully', updatedReport });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: 'Internal server error' });
+  }
+});
 
 module.exports = router;
