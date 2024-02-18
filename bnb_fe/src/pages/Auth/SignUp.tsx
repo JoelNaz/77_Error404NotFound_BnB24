@@ -83,6 +83,7 @@ export default function SignUpOne() {
                       onChange={(e)=>{setUsername(e.target.value)}}
                     ></input>
                   </div>
+                  <p className='text-[10px] text-[#d33c3d]'>Please remember this username as you it is assigned randomly</p>
                 </div>
                 <div>
                   <label htmlFor="email" className="text-base font-medium text-gray-900">
@@ -99,6 +100,7 @@ export default function SignUpOne() {
                       onChange={(e)=>{setEmail(e.target.value)}}
                     ></input>
                   </div>
+                  
                 </div>
                 <div>
                   <div className="flex items-center justify-between">

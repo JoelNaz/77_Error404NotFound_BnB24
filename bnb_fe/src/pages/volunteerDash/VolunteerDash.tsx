@@ -24,23 +24,32 @@ function VolunteerDash() {
         navigate("/")
       }
       else{
-        const decoded=jwtDecode(token) as { _id: string }
-        // console.log(decoded)
-        seIsLoading(true)
-        setuserId(decoded._id)
-        const response = await getAllUserReports(decoded._id) 
-        setReports(response?.data.userReports)
-        const response1 = await checkMessage(decoded._id)
-        console.log(response.data)
-        if(response1.data.messagesExist._id){
-          console.log("helo")
-          setMessageExist(true)
-          setOtherId(response1.data.otherUserId)
-          console.log(otherId)
-          
+        try{
+
+          const decoded=jwtDecode(token) as { _id: string }
+          // console.log(decoded)
+          seIsLoading(true)
+          setuserId(decoded._id)
+          const response = await getAllUserReports(decoded._id) 
+          setReports(response?.data.userReports)
+          const response1 = await checkMessage(decoded._id)
+          console.log(response.data)
+          if(response1.data.messagesExist._id){
+            console.log("helo")
+            setMessageExist(true)
+            setOtherId(response1.data.otherUserId)
+            console.log(otherId)
+            
+          }
+            
         }
-          
-        seIsLoading(false)
+        catch(e){
+          console.log(e)
+        }
+        finally{
+          seIsLoading(false)
+
+        }
       }  
     }
       fetchReports();
