@@ -28,6 +28,7 @@ export default function ExampleNavbarThree() {
     setIsMenuOpen(!isMenuOpen)
   }
   const token = useProfileStore((state)=>state.token)
+
   const logout = useProfileStore((state)=>state.logout)
   const handleLogout = ()=>{
     logout()

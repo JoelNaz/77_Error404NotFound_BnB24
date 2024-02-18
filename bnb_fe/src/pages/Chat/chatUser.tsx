@@ -12,11 +12,13 @@ function ChatUser() {
   const navigate = useNavigate();
   const [messageInput, setMessageInput] = useState("");
   const [messages, setMessages] = useState([]);
+  const role = useProfileStore((state)=>state.role)
 
   const fetchMessages = async (userId, investId, participant) => {
     try {
       const response = await fetchMessage(userId, investId, participant);
       setMessages(response.data.messages);
+      console.log(role)
     } catch (error) {
       console.error('Error fetching messages:', error);
     }
@@ -31,16 +33,16 @@ function ChatUser() {
         sender: decoded._id,
         receiver,
         participants,
-        message: message, // Ensure the message field is being sent correctly
+        message: message,
       });
   
-      // Refetch messages after sending
-      fetchMessages(userId, decoded._id, receiver);
+      // Update state directly without waiting for fetchMessages
+      setMessages([...messages, { message, sender: decoded._id }]);
   
       // Clear the input field
       setMessageInput("");
     } catch (e) {
-      console.log(e);
+      console.error('Error sending message:', e);
     }
   };
 
@@ -61,11 +63,14 @@ function ChatUser() {
   return (
     <div>
       <div>
-        {messages.map((msg) => (
-          <div key={msg._id}>
-            <p>{msg.message}</p>
-          </div>
-        ))}
+      {messages.map((msg) => (
+  <div key={msg._id}>
+    <p>
+      <strong>{msg.sender === "Investigator" ? "User" : "Investigator"}:</strong>{" "}
+      {msg.message}
+    </p>
+  </div>
+))}
       </div>
       <div>
         <input
