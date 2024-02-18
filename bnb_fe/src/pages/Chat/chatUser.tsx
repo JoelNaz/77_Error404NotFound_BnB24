@@ -50,7 +50,7 @@ function ChatUser() {
       if (token !== "") {
         const decoded = jwtDecode(token);
         console.log(decoded);
-        fetchMessages(userId, decoded._id, "Investigator");
+        fetchMessages(userId, decoded._id, role);
       } else {
         navigate('/signin-investigator');
       }
@@ -65,7 +65,7 @@ function ChatUser() {
       {messages.map((msg) => (
   <div key={msg._id}>
     <p>
-      <strong>{role === "investigator" ? "Investigator" : "User"}:</strong>
+      <strong>{role === "Investigator" ? "Investigator" : "User"}:</strong>
       {msg.message}
     </p>
   </div>
