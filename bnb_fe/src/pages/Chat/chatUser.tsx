@@ -16,9 +16,9 @@ function ChatUser() {
   const [messageInput, setMessageInput] = useState("");
   const [messages, setMessages] = useState([]);
   console.log(role);
-  const fetchMessages = async (sender, receiver, participant) => {
+  const fetchMessages = async (sender, receiver) => {
     try {
-      const response = await fetchMessage(sender, receiver, participant);
+      const response = await fetchMessage(sender, receiver);
       setMessages(response.data.messages);
       console.log(role);
     } catch (error) {

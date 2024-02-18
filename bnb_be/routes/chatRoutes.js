@@ -35,6 +35,24 @@ router.get('/:userId/:investigatorId/:participants', async (req, res) => {
 });
 
 
+router.get('/:userId/:investigatorId', async (req, res) => {
+  try {
+    const { userId, investigatorId } = req.params;
+    const messages = await Chat.find({
+      $or: [
+        { sender: userId, receiver: investigatorId },
+        { sender: investigatorId, receiver: userId },
+      ],
+    }).sort({ timestamp: 1 });
+
+    res.status(200).json({ messages });
+    console.log("success");
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: 'Internal server error' });
+  }
+});
+
 
 
 
